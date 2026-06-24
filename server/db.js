@@ -1,8 +1,11 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // Initialize database pool connection
 const pool = mysql.createPool({

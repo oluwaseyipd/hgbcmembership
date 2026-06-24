@@ -39,6 +39,11 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Health Check Route
+app.get('/api', (req, res) => {
+  res.json({ status: 'ok', message: 'HGBC Membership API is running' });
+});
+
 // ----------------- AUTH ROUTES -----------------
 
 // Admin Login

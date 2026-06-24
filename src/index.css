@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: "Outfit", serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Colors */
+  --color-primary-400: oklch(0.7558 0.1959 45.26);
+  --color-primary-500: oklch(0.6993 0.1959 45.26);
+  --color-brand-black: #000000;
+
+  color-scheme: light;
+  color: #1e293b; /* Set to default slate-800 color for body text readability in membership */
+  background-color: #f8fafc; /* light grey/slate background by default */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}
+
+.active-navlink a {
+  position: relative;
+  color: black;
+}
+
+.active-navlink a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 50%;
+  height: 4px;
+  border-radius: 5px;
+  background-color: #3b82f6; /* Blue indicator matching HGBC dashboard */
+  transform: translateX(-50%);
+}

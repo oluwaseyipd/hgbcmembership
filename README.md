@@ -46,7 +46,7 @@ A premium, modern, and highly interactive Full-Stack web application designed to
 | **Icons** | Lucide React + React Icons | Harmonious and premium visual indicators |
 | **Backend** | Node.js + Express | RESTful API server |
 | **Auth** | JWT (jsonwebtoken) + bcryptjs | Protected endpoints and secure credential hashing |
-| **Database** | JSON File Store | Lightweight, persistent server-side JSON storage |
+| **Database** | MySQL / MariaDB | Relational SQL database server support |
 
 ---
 
@@ -56,11 +56,9 @@ A premium, modern, and highly interactive Full-Stack web application designed to
 hgbcmembership/
 ├── .github/                  # Github configuration
 ├── server/                   # Backend API Engine
-│   ├── .env                  # Port, JWT Secret, and Default Admin credentials
+│   ├── .env                  # Port, JWT Secret, DB parameters, and Default Admin credentials
 │   ├── server.js             # Express application & API endpoints
-│   ├── db.js                 # LowDB-style JSON storage manager (CRUD operations)
-│   ├── members.json          # DB file containing members' registrations
-│   ├── users.json            # DB file containing admin user accounts
+│   ├── db.js                 # MySQL database connector (tables setup, queries)
 │   ├── package.json          # Server dependencies
 │   └── node_modules/         # Server package binaries
 ├── src/                      # Frontend Application
@@ -97,11 +95,18 @@ PORT=5000
 JWT_SECRET=hgbc_secret_key_2026_jwt
 ADMIN_EMAIL=admin@hgbc.org
 ADMIN_PASSWORD=hgbcadmin123
-DATABASE_FILE=hgbcmembership.db
+
+# MySQL Configurations
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=hgbcinfl_hghbcmembership
+DB_PASSWORD="Um7tqedS3U{&#S,P"
+DB_NAME=hgbcinfl_hgbcmembership
 ```
 
 > [!IMPORTANT]
-> The admin seed credentials `ADMIN_EMAIL` and `ADMIN_PASSWORD` are automatically populated in the database `users.json` upon the server's first execution.
+> - **Password Wrapping**: If your database password contains special characters (like `#`), ensure you wrap the value in double quotes (`"..."`) to prevent truncation by the environment variables parser.
+> - **Seeding**: The admin seed credentials `ADMIN_EMAIL` and `ADMIN_PASSWORD` are automatically populated in the MySQL `users` table upon the server's first execution if it is empty.
 
 ---
 

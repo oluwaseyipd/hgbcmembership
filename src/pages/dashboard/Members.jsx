@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Search, Filter, ArrowUpDown, ChevronLeft, ChevronRight, Download, Eye, Edit2, Trash2, X, AlertTriangle } from "lucide-react";
+import { API_URL } from "../../constants/api";
 
 const ageRanges = ["Birth to 10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91 and Above"];
 const maritalOptions = ["Single", "Married", "Divorced"];
@@ -77,7 +78,7 @@ export default function Members() {
         order
       });
 
-      const res = await fetch(`http://localhost:5000/api/members?${queryParams}`, {
+      const res = await fetch(`${API_URL}/api/members?${queryParams}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const result = await res.json();
@@ -117,7 +118,7 @@ export default function Members() {
   const handleExport = async () => {
     try {
       const token = localStorage.getItem("hgbc_admin_token");
-      const response = await fetch("http://localhost:5000/api/members/export", {
+      const response = await fetch(`${API_URL}/api/members/export`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!response.ok) throw new Error("Export failed");
@@ -142,7 +143,7 @@ export default function Members() {
     setSuccessMsg("");
     try {
       const token = localStorage.getItem("hgbc_admin_token");
-      const res = await fetch(`http://localhost:5000/api/members/${editMember.id}`, {
+      const res = await fetch(`${API_URL}/api/members/${editMember.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +168,7 @@ export default function Members() {
     setSuccessMsg("");
     try {
       const token = localStorage.getItem("hgbc_admin_token");
-      const res = await fetch(`http://localhost:5000/api/members/${deleteMember.id}`, {
+      const res = await fetch(`${API_URL}/api/members/${deleteMember.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

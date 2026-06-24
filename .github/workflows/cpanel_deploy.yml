@@ -15,11 +15,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # Remove or fix the cache-dependency-path
-          # Option 1: Remove cache entirely(simplest)
-          # Option 2: Fix the path(see below)
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       
       - name: Install dependencies and build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: |
           npm ci
           npm run build

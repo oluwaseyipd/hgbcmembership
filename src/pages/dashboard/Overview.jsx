@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from "recharts";
 import { Users, GraduationCap, Heart, CheckCircle2, ShieldAlert } from "lucide-react";
+import { API_URL } from "../../constants/api";
 
 const COLORS = ["#3b82f6", "#a855f7", "#ec4899", "#f59e0b", "#10b981", "#6366f1"];
 
@@ -13,7 +14,7 @@ export default function Overview() {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem("hgbc_admin_token");
-        const res = await fetch("http://localhost:5000/api/stats", {
+        const res = await fetch(`${API_URL}/api/stats`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

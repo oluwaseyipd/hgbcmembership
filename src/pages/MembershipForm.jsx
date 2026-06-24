@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Heart, Shield, GraduationCap, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import logo from "../assets/images/logo.png";
+import { API_URL } from "../constants/api";
 
 // Step titles and icons
 const steps = [
@@ -157,7 +158,7 @@ export default function MembershipForm() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://localhost:5000/api/members", {
+      const response = await fetch(`${API_URL}/api/members`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

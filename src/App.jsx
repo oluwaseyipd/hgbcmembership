@@ -14,6 +14,8 @@ import AdminLayout from "./pages/dashboard/AdminLayout";
 import Overview from "./pages/dashboard/Overview";
 import Members from "./pages/dashboard/Members";
 
+import { API_URL } from "./constants/api";
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -26,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
     }
 
     // Verify token validity with backend
-    fetch("http://localhost:5000/api/auth/verify", {
+    fetch(`${API_URL}/api/auth/verify`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

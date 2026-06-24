@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, Shield } from "lucide-react";
 import logo from "../assets/images/logo.png";
+import { API_URL } from "../constants/api";
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function Signin() {
     setIsLoading(true);
     
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

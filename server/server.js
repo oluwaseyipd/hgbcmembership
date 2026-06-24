@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { db } from './db.js';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -42,9 +43,23 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// Health Check Route
+// Health Check Route with Diagnostics
 app.get('/api', (req, res) => {
-  res.json({ status: 'ok', message: 'HGBC Membership API is running' });
+  const envPath = path.resolve(__dirname, '.env');
+  const exists = fs.existsSync(envPath);
+  res.json({
+    status: 'ok',
+    message: 'HGBC Membership API is running',
+    diagnostics: {
+      envFileExists: exists,
+      envResolvedPath: envPath,
+      cwd: process.cwd(),
+      dbUser: process.env.DB_USER || 'NOT_SET (defaults to root)',
+      dbHost: process.env.DB_HOST || 'NOT_SET (defaults to localhost)',
+      dbName: process.env.DB_NAME || 'NOT_SET',
+      hasPassword: !!process.env.DB_PASSWORD
+    }
+  });
 });
 
 // ----------------- AUTH ROUTES -----------------

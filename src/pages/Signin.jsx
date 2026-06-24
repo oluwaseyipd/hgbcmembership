@@ -76,7 +76,7 @@ export default function Signin() {
       });
       const result = await response.json();
       if (!response.ok) {
-        throw new Error(result.error || "Login failed");
+        throw new Error(result.details || result.error || "Login failed");
       }
       // Save credentials & redirect
       localStorage.setItem("hgbc_admin_token", result.token);

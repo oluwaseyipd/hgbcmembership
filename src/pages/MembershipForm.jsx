@@ -181,7 +181,7 @@ export default function MembershipForm() {
   const ActiveIcon = steps[currentStep].icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4 py-12 relative font-sans">
+    <div id="membership-form" className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-purple-50 flex items-center justify-center p-4 py-12 relative font-sans">
       {/* Background Graphic */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div
@@ -193,21 +193,13 @@ export default function MembershipForm() {
       </div>
 
       <div className="w-full max-w-3xl relative">
-        {/* Upper Card Logo Header */}
-        <div className="text-center mb-6">
-          <img src={logo} alt="HGBC Logo" className="w-16 h-16 mx-auto mb-2 drop-shadow-md" />
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-purple-800 bg-clip-text text-transparent uppercase tracking-wider">
-            Higher Ground Baptist Church
-          </h1>
-          <p className="text-slate-500 font-medium text-sm mt-1 uppercase">Members' Information Portal</p>
-        </div>
 
         {/* Stepper Progress bar */}
         <div className="bg-white/70 backdrop-blur-md rounded-2xl p-4 mb-6 border border-white/20 shadow-sm">
           <div className="flex justify-between items-center relative px-2">
             <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-slate-200 -z-10 -translate-y-1/2 mx-8"></div>
             <div
-              className="absolute left-0 top-1/2 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 -z-10 -translate-y-1/2 mx-8 transition-all duration-300"
+              className="absolute left-0 top-1/2 h-0.5 bg-gradient-to-r from-orange-600 to-orange-500 -z-10 -translate-y-1/2 mx-8 transition-all duration-300"
               style={{ width: `${(currentStep / (steps.length - 1)) * 90}%` }}
             ></div>
 
@@ -219,20 +211,18 @@ export default function MembershipForm() {
               return (
                 <div key={idx} className="flex flex-col items-center z-10">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
-                      isCompleted
-                        ? "bg-gradient-to-r from-blue-500 to-purple-600 border-transparent text-white shadow-md shadow-blue-500/20"
-                        : isActive
-                        ? "bg-white border-blue-600 text-blue-600 scale-110 shadow-lg shadow-blue-600/10"
+                    className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isCompleted
+                      ? "bg-orange-600 border-transparent text-white shadow-md shadow-orange-500/20"
+                      : isActive
+                        ? "bg-white border-orange-500 text-orange-500 scale-110 shadow-lg shadow-orange-500/10"
                         : "bg-white border-slate-300 text-slate-400"
-                    }`}
+                      }`}
                   >
                     {isCompleted ? <Check className="w-5 h-5" /> : <StepIcon className="w-4 h-4" />}
                   </div>
                   <span
-                    className={`text-xs mt-2 font-semibold hidden md:block transition-all duration-300 ${
-                      isActive ? "text-blue-700 font-bold" : isCompleted ? "text-slate-700" : "text-slate-400"
-                    }`}
+                    className={`text-xs mt-2 font-semibold hidden md:block transition-all duration-300 ${isActive ? "text-orange-500 font-bold" : isCompleted ? "text-slate-700" : "text-slate-400"
+                      }`}
                   >
                     {step.title}
                   </span>
@@ -245,7 +235,7 @@ export default function MembershipForm() {
         {/* Form Container */}
         <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 overflow-hidden">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-6">
-            <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
+            <div className="p-2 bg-orange-50 text-orange-500 rounded-xl">
               <ActiveIcon className="w-5 h-5" />
             </div>
             <div>
@@ -289,7 +279,7 @@ export default function MembershipForm() {
                         value={formData.name}
                         onChange={handleTextChange}
                         placeholder="e.g. Alabi Emmanuel Tunde"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -303,7 +293,7 @@ export default function MembershipForm() {
                         value={formData.phone}
                         onChange={handleTextChange}
                         placeholder="e.g. 08012345678"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -315,7 +305,7 @@ export default function MembershipForm() {
                         value={formData.whatsapp}
                         onChange={handleTextChange}
                         placeholder="e.g. 08012345678"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -327,7 +317,7 @@ export default function MembershipForm() {
                         value={formData.email}
                         onChange={handleTextChange}
                         placeholder="e.g. emmanuel@example.com"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -338,7 +328,7 @@ export default function MembershipForm() {
                         name="dob"
                         value={formData.dob}
                         onChange={handleTextChange}
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -350,7 +340,7 @@ export default function MembershipForm() {
                         name="gender"
                         value={formData.gender}
                         onChange={handleTextChange}
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       >
                         <option value="">Select Gender</option>
                         <option value="Female">Female</option>
@@ -366,7 +356,7 @@ export default function MembershipForm() {
                         name="age_range"
                         value={formData.age_range}
                         onChange={handleTextChange}
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       >
                         <option value="">Select Age-Range</option>
                         <option value="Birth to 10">Birth to 10</option>
@@ -390,7 +380,7 @@ export default function MembershipForm() {
                         name="marital_status"
                         value={formData.marital_status}
                         onChange={handleTextChange}
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       >
                         <option value="">Select Status</option>
                         <option value="Single">Single</option>
@@ -407,7 +397,7 @@ export default function MembershipForm() {
                         onChange={handleTextChange}
                         rows={2}
                         placeholder="Enter your house address..."
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       ></textarea>
                     </div>
                   </div>
@@ -425,7 +415,7 @@ export default function MembershipForm() {
                           name="born_again"
                           value={formData.born_again}
                           onChange={handleTextChange}
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         >
                           <option value="">Select Option</option>
                           <option value="Yes">Yes</option>
@@ -442,7 +432,7 @@ export default function MembershipForm() {
                           name="baptized"
                           value={formData.baptized}
                           onChange={handleTextChange}
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         >
                           <option value="">Select Option</option>
                           <option value="Yes">Yes</option>
@@ -466,7 +456,7 @@ export default function MembershipForm() {
                           onChange={handleTextChange}
                           rows={3}
                           placeholder="How did you accept Christ as your Lord and Savior?"
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         ></textarea>
                       </motion.div>
                     )}
@@ -480,7 +470,7 @@ export default function MembershipForm() {
                           name="baptist_from_home"
                           value={formData.baptist_from_home}
                           onChange={handleTextChange}
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         >
                           <option value="">Select Option</option>
                           <option value="Yes">Yes</option>
@@ -496,7 +486,7 @@ export default function MembershipForm() {
                           value={formData.home_church}
                           onChange={handleTextChange}
                           placeholder="e.g. Ebenezer Baptist Church"
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -507,7 +497,7 @@ export default function MembershipForm() {
                           name="joined_hgbc"
                           value={formData.joined_hgbc}
                           onChange={handleTextChange}
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         />
                       </div>
                     </div>
@@ -522,11 +512,10 @@ export default function MembershipForm() {
                           return (
                             <label
                               key={option}
-                              className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                                isChecked
-                                  ? "bg-blue-50 border-blue-200 text-blue-700 font-medium"
-                                  : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
-                              }`}
+                              className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${isChecked
+                                ? "bg-orange-50 border-orange-200 text-orange-500 font-medium"
+                                : "bg-white border-slate-200 text-slate-600 hover:bg-orange-50"
+                                }`}
                             >
                               <input
                                 type="checkbox"
@@ -535,9 +524,8 @@ export default function MembershipForm() {
                                 className="hidden"
                               />
                               <div
-                                className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
-                                  isChecked ? "bg-blue-600 border-blue-600 text-white" : "border-slate-300 bg-white"
-                                }`}
+                                className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${isChecked ? "bg-orange-500 border-orange-500 text-white" : "border-slate-300 bg-white"
+                                  }`}
                               >
                                 {isChecked && <Check className="w-3.5 h-3.5" />}
                               </div>
@@ -563,7 +551,7 @@ export default function MembershipForm() {
                         value={formData.guardian_name}
                         onChange={handleTextChange}
                         placeholder="Someone responsible for you"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -577,7 +565,7 @@ export default function MembershipForm() {
                         value={formData.guardian_phone}
                         onChange={handleTextChange}
                         placeholder="Guardian's contact phone"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
 
@@ -589,7 +577,7 @@ export default function MembershipForm() {
                         name="guardian_rel"
                         value={formData.guardian_rel}
                         onChange={handleTextChange}
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       >
                         <option value="">Select Relationship</option>
                         <option value="Biological Parent">Biological Parent</option>
@@ -605,7 +593,7 @@ export default function MembershipForm() {
                         value={formData.guardian_loc}
                         onChange={handleTextChange}
                         placeholder="e.g. Lagos, Nigeria"
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
@@ -623,7 +611,7 @@ export default function MembershipForm() {
                           name="lautech_student"
                           value={formData.lautech_student}
                           onChange={handleTextChange}
-                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                         >
                           <option value="No">No</option>
                           <option value="Yes">Yes</option>
@@ -639,7 +627,7 @@ export default function MembershipForm() {
                             name="current_level"
                             value={formData.current_level}
                             onChange={handleTextChange}
-                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                           >
                             <option value="Not Applicable">Select Level</option>
                             {levels.filter(l => l !== "Not Applicable").map((l) => (
@@ -666,7 +654,7 @@ export default function MembershipForm() {
                             name="lautech_faculty"
                             value={formData.lautech_faculty}
                             onChange={handleTextChange}
-                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                           >
                             <option value="">Select Faculty</option>
                             {faculties.map((f) => (
@@ -687,7 +675,7 @@ export default function MembershipForm() {
                             value={formData.lautech_dept}
                             onChange={handleTextChange}
                             placeholder="e.g. Computer Science"
-                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                           />
                         </div>
 
@@ -701,7 +689,7 @@ export default function MembershipForm() {
                             value={formData.hostel_address}
                             onChange={handleTextChange}
                             placeholder="e.g. Under-G, Ogbomoso"
-                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                           />
                         </div>
                       </motion.div>
@@ -715,7 +703,7 @@ export default function MembershipForm() {
                         onChange={handleTextChange}
                         rows={3}
                         placeholder="Any other comments or feedback..."
-                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                       ></textarea>
                     </div>
                   </div>
@@ -739,7 +727,7 @@ export default function MembershipForm() {
                 type="button"
                 onClick={handleNext}
                 disabled={loading}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg shadow-blue-500/10 cursor-pointer disabled:opacity-80"
+                className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:from-orange-700 hover:to-purple-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg shadow-orange-500/10 cursor-pointer disabled:opacity-80"
               >
                 {loading ? (
                   <>

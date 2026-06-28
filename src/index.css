@@ -43,3 +43,51 @@ body {
   background-color: #3b82f6; /* Blue indicator matching HGBC dashboard */
   transform: translateX(-50%);
 }
+
+/* Intro Overlay Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUnderbar {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.fade-text {
+  animation: fadeInText 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-text.delay {
+  animation-delay: 0.7s;
+}
+
+.underbar {
+  animation: slideInUnderbar 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.3s;
+}
+

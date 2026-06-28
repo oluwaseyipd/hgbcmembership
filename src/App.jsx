@@ -8,6 +8,7 @@ import './index.css';
 import MembershipForm from './pages/MembershipForm';
 import Success from './pages/Success';
 import Signin from './pages/Signin';
+import Home from './pages/Home'
 
 // Dashboard Pages
 import AdminLayout from "./pages/dashboard/AdminLayout";
@@ -63,7 +64,7 @@ function App() {
     <Router>
       <Routes>
         {/* Public Registration Page */}
-        <Route path="/" element={<MembershipForm />} />
+        <Route path="/" element={<Home />} />
         <Route path="/success" element={<Success />} />
 
         {/* Admin Authentication */}

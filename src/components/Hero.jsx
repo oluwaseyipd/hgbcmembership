@@ -31,15 +31,15 @@ const Hero = () => {
             {showIntro && (
                 <div className="fixed inset-0 bg-white flex flex-col justify-center items-center z-50 p-6 text-center transition-opacity duration-500 ease-in-out">
                     <h1 className="fade-text opacity-0 text-3xl md:text-6xl font-normal mb-4 text-zinc-900">
-                        Welcome to The{" "}
+                        Welcome {" "}
                         <span className="bg-[rgb(234,57,8)] text-white py-1.5 px-6 rounded-md font-bold shadow-lg shadow-orange-600/10">
-                            City of Refuge
+                            Kingdom Influencer
                         </span>
                     </h1>
-                    <div className="relative flex flex-col items-center mt-2">
+                    <div className="relative flex flex-col items-center mt-8">
                         <span className="underbar opacity-0 w-72 md:w-96 lg:w-[31.25rem] h-1.5 inline-block bg-[rgb(234,57,8)] absolute bottom-0 left-1/2 transform -translate-x-1/2"></span>
                         <p className="fade-text delay text-lg md:text-3xl opacity-0 font-normal text-zinc-600">
-                            We are so glad you're here!
+                            You're Wonderful, you're more!
                         </p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ const Hero = () => {
 
                     <div className="relative z-10 max-w-4xl mt-16">
                         <span className="inline-block px-5 py-2 text-[10px] tracking-[0.3em] bg-white/10 backdrop-blur-md text-orange-500 font-black rounded-full mb-8 border border-white/20 uppercase animate-pulse">
-                            First Timers
+                            Membership
                         </span>
                         <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 tracking-tighter leading-tight bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
                             WELCOME TO HGBC

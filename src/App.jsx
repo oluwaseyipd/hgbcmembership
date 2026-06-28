@@ -8,7 +8,9 @@ import './index.css';
 import MembershipForm from './pages/MembershipForm';
 import Success from './pages/Success';
 import Signin from './pages/Signin';
-import Home from './pages/Home'
+import Home from './pages/Home';
+import ScrollToTop from './components/ScrollToTop';
+
 
 // Dashboard Pages
 import AdminLayout from "./pages/dashboard/AdminLayout";
@@ -62,6 +64,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Public Registration Page */}
         <Route path="/" element={<Home />} />

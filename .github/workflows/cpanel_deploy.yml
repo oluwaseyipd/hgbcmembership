@@ -21,6 +21,10 @@ jobs:
       - name: Install dependencies and build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         run: |
           npm ci
           npm run build

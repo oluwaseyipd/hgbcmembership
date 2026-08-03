@@ -46,7 +46,7 @@ A premium, modern, and highly interactive Full-Stack web application designed to
 | **Icons** | Lucide React + React Icons | Harmonious and premium visual indicators |
 | **Backend** | Node.js + Express | RESTful API server |
 | **Auth** | JWT (jsonwebtoken) + bcryptjs | Protected endpoints and secure credential hashing |
-| **Database** | MySQL / MariaDB | Relational SQL database server support |
+| **Database** | PostgreSQL (Supabase) | Managed Relational SQL Database |
 
 ---
 
@@ -96,17 +96,21 @@ JWT_SECRET=hgbc_secret_key_2026_jwt
 ADMIN_EMAIL=admin@hgbc.org
 ADMIN_PASSWORD=hgbcadmin123
 
-# MySQL Configurations
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=hgbcinfl_hghbcmembership
-DB_PASSWORD="Um7tqedS3U{&#S,P"
-DB_NAME=hgbcinfl_hgbcmembership
+# PostgreSQL Configurations (DATABASE_URL is recommended for Supabase/Render)
+DATABASE_URL=postgresql://postgres:[YOUR_PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+
+# Alternatively, configure individual PostgreSQL components:
+# DB_HOST=localhost
+# DB_PORT=5432
+# DB_USER=postgres
+# DB_PASSWORD=your_password
+# DB_NAME=hgbcmembership
+# DB_SSL=true
 ```
 
 > [!IMPORTANT]
-> - **Password Wrapping**: If your database password contains special characters (like `#`), ensure you wrap the value in double quotes (`"..."`) to prevent truncation by the environment variables parser.
-> - **Seeding**: The admin seed credentials `ADMIN_EMAIL` and `ADMIN_PASSWORD` are automatically populated in the MySQL `users` table upon the server's first execution if it is empty.
+> - **Supabase Connection SSL**: Supabase requires SSL to connect. The database client will automatically enable SSL if `DATABASE_URL` is provided or if `DB_SSL=true` is set.
+> - **Seeding**: The admin seed credentials `ADMIN_EMAIL` and `ADMIN_PASSWORD` are automatically populated in the PostgreSQL `users` table upon the server's first execution if it is empty.
 
 ---
 

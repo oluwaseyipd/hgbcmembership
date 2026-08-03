@@ -54,7 +54,9 @@ app.get('/api', (req, res) => {
       envFileExists: exists,
       envResolvedPath: envPath,
       cwd: process.cwd(),
-      dbUser: process.env.DB_USER || 'NOT_SET (defaults to root)',
+      dbType: 'PostgreSQL',
+      usingConnectionString: !!process.env.DATABASE_URL,
+      dbUser: process.env.DB_USER || 'NOT_SET (defaults to postgres)',
       dbHost: process.env.DB_HOST || 'NOT_SET (defaults to localhost)',
       dbName: process.env.DB_NAME || 'NOT_SET',
       hasPassword: !!process.env.DB_PASSWORD

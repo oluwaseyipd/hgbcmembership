@@ -1,23 +1,30 @@
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import mysql from 'mysql2/promise';
+import pg from 'pg';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-// Initialize database pool connection
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT) || 3306,
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'hgbcmembership',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+// Initialize PostgreSQL pool connection
+// Support standard Render DATABASE_URL or individual fallback configurations
+const poolConfig = {};
+
+if (process.env.DATABASE_URL) {
+  poolConfig.connectionString = process.env.DATABASE_URL;
+  poolConfig.ssl = { rejectUnauthorized: false };
+} else {
+  poolConfig.host = process.env.DB_HOST || 'localhost';
+  poolConfig.port = parseInt(process.env.DB_PORT, 10) || 5432;
+  poolConfig.user = process.env.DB_USER || 'postgres';
+  poolConfig.password = process.env.DB_PASSWORD || '';
+  poolConfig.database = process.env.DB_NAME || 'hgbcmembership';
+  poolConfig.ssl = process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false;
+}
+
+const pool = new pg.Pool(poolConfig);
+
 
 // Initialize database tables and seed if necessary
 async function initDb() {
@@ -25,7 +32,7 @@ async function initDb() {
     // 1. Create tables
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         role VARCHAR(50) DEFAULT 'admin',
@@ -35,7 +42,7 @@ async function initDb() {
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS members (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         phone VARCHAR(50) NOT NULL,
         dob VARCHAR(50) NULL,
@@ -63,25 +70,25 @@ async function initDb() {
         discipleship_done TEXT NULL,
         comments TEXT NULL,
         submitted_at VARCHAR(100) NULL,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
     console.log('Database tables verified/created successfully.');
 
     // 2. Seed default admin if empty
-    const [userRows] = await pool.query('SELECT COUNT(*) as count FROM users');
-    const userCount = userRows[0].count;
+    const { rows: userRows } = await pool.query('SELECT COUNT(*) as count FROM users');
+    const userCount = parseInt(userRows[0].count, 10);
 
     if (userCount === 0) {
       const adminEmail = process.env.ADMIN_EMAIL || 'admin@hgbc.org';
       const adminPassword = process.env.ADMIN_PASSWORD || 'hgbcadmin123';
       const hashedPassword = bcrypt.hashSync(adminPassword, 10);
       await pool.query(
-        'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
+        'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)',
         [adminEmail, hashedPassword, 'admin']
       );
-      console.log('Seeded default admin user in MySQL database:', adminEmail);
+      console.log('Seeded default admin user in PostgreSQL database:', adminEmail);
     }
   } catch (error) {
     console.error('Database initialization error:', error);
@@ -90,21 +97,21 @@ async function initDb() {
 
 // Trigger initial setup
 initDb().catch(err => {
-  console.error('CRITICAL: Failed to initialize MySQL Database connection:', err);
+  console.error('CRITICAL: Failed to initialize PostgreSQL Database connection:', err);
 });
 
 // DB Queries interface
 export const db = {
   // Authentication
   getUserByEmail: async (email) => {
-    const [rows] = await pool.query('SELECT * FROM users WHERE LOWER(email) = LOWER(?)', [email]);
+    const { rows } = await pool.query('SELECT * FROM users WHERE LOWER(email) = LOWER($1)', [email]);
     if (rows.length === 0) return null;
     return rows[0];
   },
 
   // Members CRUD
   getMemberById: async (id) => {
-    const [rows] = await pool.query('SELECT * FROM members WHERE id = ?', [id]);
+    const { rows } = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
     if (rows.length === 0) return null;
     const m = rows[0];
     let discipleship_done = [];
@@ -118,7 +125,7 @@ export const db = {
 
   getMemberByEmail: async (email) => {
     if (!email) return null;
-    const [rows] = await pool.query('SELECT * FROM members WHERE LOWER(email) = LOWER(?)', [email]);
+    const { rows } = await pool.query('SELECT * FROM members WHERE LOWER(email) = LOWER($1)', [email]);
     if (rows.length === 0) return null;
     const m = rows[0];
     let discipleship_done = [];
@@ -132,13 +139,13 @@ export const db = {
 
   addMember: async (data) => {
     const discipleshipStr = Array.isArray(data.discipleship_done) ? JSON.stringify(data.discipleship_done) : '[]';
-    const [result] = await pool.query(
+    const { rows } = await pool.query(
       `INSERT INTO members (
         name, phone, dob, whatsapp, email, gender, joined_hgbc, age_range, born_again,
         baptized, baptist_from_home, home_church, salvation_xp, home_address, marital_status,
         guardian_name, guardian_phone, guardian_rel, guardian_loc, lautech_student, current_level,
         hostel_address, lautech_faculty, discipleship_done, lautech_dept, comments, submitted_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) RETURNING id`,
       [
         data.name, data.phone, data.dob || '', data.whatsapp || '', data.email || null, data.gender || '', data.joined_hgbc || '', data.age_range || '', data.born_again || '',
         data.baptized || '', data.baptist_from_home || '', data.home_church || '', data.salvation_xp || '', data.home_address || '', data.marital_status || '',
@@ -146,12 +153,12 @@ export const db = {
         data.hostel_address || '', data.lautech_faculty || '', discipleshipStr, data.lautech_dept || '', data.comments || '', new Date().toISOString()
       ]
     );
-    const insertId = result.insertId;
+    const insertId = rows[0].id;
     return { id: insertId, ...data };
   },
 
   updateMember: async (id, data) => {
-    const [existingRows] = await pool.query('SELECT * FROM members WHERE id = ?', [id]);
+    const { rows: existingRows } = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
     if (existingRows.length === 0) return null;
     const existing = existingRows[0];
 
@@ -161,11 +168,11 @@ export const db = {
 
     await pool.query(
       `UPDATE members SET
-        name = ?, phone = ?, dob = ?, whatsapp = ?, email = ?, gender = ?, joined_hgbc = ?, age_range = ?, born_again = ?,
-        baptized = ?, baptist_from_home = ?, home_church = ?, salvation_xp = ?, home_address = ?, marital_status = ?,
-        guardian_name = ?, guardian_phone = ?, guardian_rel = ?, guardian_loc = ?, lautech_student = ?, current_level = ?,
-        hostel_address = ?, lautech_faculty = ?, discipleship_done = ?, lautech_dept = ?, comments = ?
-      WHERE id = ?`,
+        name = $1, phone = $2, dob = $3, whatsapp = $4, email = $5, gender = $6, joined_hgbc = $7, age_range = $8, born_again = $9,
+        baptized = $10, baptist_from_home = $11, home_church = $12, salvation_xp = $13, home_address = $14, marital_status = $15,
+        guardian_name = $16, guardian_phone = $17, guardian_rel = $18, guardian_loc = $19, lautech_student = $20, current_level = $21,
+        hostel_address = $22, lautech_faculty = $23, discipleship_done = $24, lautech_dept = $25, comments = $26, updated_at = CURRENT_TIMESTAMP
+      WHERE id = $27`,
       [
         data.name ?? existing.name,
         data.phone ?? existing.phone,
@@ -197,7 +204,7 @@ export const db = {
       ]
     );
 
-    const [updatedRows] = await pool.query('SELECT * FROM members WHERE id = ?', [id]);
+    const { rows: updatedRows } = await pool.query('SELECT * FROM members WHERE id = $1', [id]);
     const m = updatedRows[0];
     let discipleship_done = [];
     try {
@@ -209,12 +216,12 @@ export const db = {
   },
 
   deleteMember: async (id) => {
-    const [result] = await pool.query('DELETE FROM members WHERE id = ?', [id]);
-    return result.affectedRows > 0;
+    const result = await pool.query('DELETE FROM members WHERE id = $1', [id]);
+    return result.rowCount > 0;
   },
 
   getAllMembersForExport: async () => {
-    const [rows] = await pool.query('SELECT * FROM members ORDER BY name ASC');
+    const { rows } = await pool.query('SELECT * FROM members ORDER BY name ASC');
     return rows.map(r => {
       let discipleship_done = [];
       try {
@@ -229,37 +236,39 @@ export const db = {
   getMembersList: async (filters = {}) => {
     let query = 'SELECT * FROM members WHERE 1=1';
     const params = [];
+    let paramIndex = 1;
 
     // 1. Searching
     if (filters.search) {
       const searchVal = `%${filters.search}%`;
-      query += ' AND (LOWER(name) LIKE LOWER(?) OR LOWER(email) LIKE LOWER(?) OR phone LIKE ?)';
+      query += ` AND (LOWER(name) LIKE LOWER($${paramIndex}) OR LOWER(email) LIKE LOWER($${paramIndex + 1}) OR phone LIKE $${paramIndex + 2})`;
       params.push(searchVal, searchVal, searchVal);
+      paramIndex += 3;
     }
 
     // 2. Filtering
     if (filters.gender) {
-      query += ' AND gender = ?';
+      query += ` AND gender = $${paramIndex++}`;
       params.push(filters.gender);
     }
     if (filters.ageRange) {
-      query += ' AND age_range = ?';
+      query += ` AND age_range = $${paramIndex++}`;
       params.push(filters.ageRange);
     }
     if (filters.bornAgain) {
-      query += ' AND born_again = ?';
+      query += ` AND born_again = $${paramIndex++}`;
       params.push(filters.bornAgain);
     }
     if (filters.lautechStudent) {
-      query += ' AND lautech_student = ?';
+      query += ` AND lautech_student = $${paramIndex++}`;
       params.push(filters.lautechStudent);
     }
     if (filters.faculty) {
-      query += ' AND lautech_faculty = ?';
+      query += ` AND lautech_faculty = $${paramIndex++}`;
       params.push(filters.faculty);
     }
     if (filters.maritalStatus) {
-      query += ' AND marital_status = ?';
+      query += ` AND marital_status = $${paramIndex++}`;
       params.push(filters.maritalStatus);
     }
 
@@ -279,38 +288,40 @@ export const db = {
     // Get total count first for pagination metadata
     let countQuery = 'SELECT COUNT(*) as total FROM members WHERE 1=1';
     const countParams = [];
+    let countParamIndex = 1;
     if (filters.search) {
       const searchVal = `%${filters.search}%`;
-      countQuery += ' AND (LOWER(name) LIKE LOWER(?) OR LOWER(email) LIKE LOWER(?) OR phone LIKE ?)';
+      countQuery += ` AND (LOWER(name) LIKE LOWER($${countParamIndex}) OR LOWER(email) LIKE LOWER($${countParamIndex + 1}) OR phone LIKE $${countParamIndex + 2})`;
       countParams.push(searchVal, searchVal, searchVal);
+      countParamIndex += 3;
     }
     if (filters.gender) {
-      countQuery += ' AND gender = ?';
+      countQuery += ` AND gender = $${countParamIndex++}`;
       countParams.push(filters.gender);
     }
     if (filters.ageRange) {
-      countQuery += ' AND age_range = ?';
+      countQuery += ` AND age_range = $${countParamIndex++}`;
       countParams.push(filters.ageRange);
     }
     if (filters.bornAgain) {
-      countQuery += ' AND born_again = ?';
+      countQuery += ` AND born_again = $${countParamIndex++}`;
       countParams.push(filters.bornAgain);
     }
     if (filters.lautechStudent) {
-      countQuery += ' AND lautech_student = ?';
+      countQuery += ` AND lautech_student = $${countParamIndex++}`;
       countParams.push(filters.lautechStudent);
     }
     if (filters.faculty) {
-      countQuery += ' AND lautech_faculty = ?';
+      countQuery += ` AND lautech_faculty = $${countParamIndex++}`;
       countParams.push(filters.faculty);
     }
     if (filters.maritalStatus) {
-      countQuery += ' AND marital_status = ?';
+      countQuery += ` AND marital_status = $${countParamIndex++}`;
       countParams.push(filters.maritalStatus);
     }
 
-    const [countResult] = await pool.query(countQuery, countParams);
-    const totalItems = countResult[0].total;
+    const { rows: countResult } = await pool.query(countQuery, countParams);
+    const totalItems = parseInt(countResult[0].total, 10);
 
     // 4. Pagination
     const page = parseInt(filters.page) || 1;
@@ -318,10 +329,10 @@ export const db = {
     const totalPages = Math.ceil(totalItems / limit);
     const startIndex = (page - 1) * limit;
 
-    query += ' LIMIT ? OFFSET ?';
+    query += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
     params.push(limit, startIndex);
 
-    const [rows] = await pool.query(query, params);
+    const { rows } = await pool.query(query, params);
 
     // Parse discipleship_done
     const members = rows.map(r => {
@@ -353,7 +364,7 @@ export const db = {
   },
 
   getStats: async () => {
-    const [members] = await pool.query('SELECT * FROM members');
+    const { rows: members } = await pool.query('SELECT * FROM members');
     
     // Parse discipleship_done for stats processing
     const parsedMembers = members.map(m => {

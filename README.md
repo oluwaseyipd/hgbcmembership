@@ -1,6 +1,6 @@
 # Higher Ground Baptist Church (HGBC) Membership Portal
 
-A premium, modern, and highly interactive Full-Stack web application designed to facilitate members' registration and provide administrators with a robust analytics and CRUD dashboard. Built using a Node.js + Express backend and a React + Tailwind CSS v4 frontend.
+A premium, modern, and highly interactive Full-Stack web application designed to facilitate members' registration and provide administrators with a robust analytics and CRUD dashboard. Built using a Node.js + Express backend (hosted on Render and connected to a Supabase PostgreSQL database) and a React + Tailwind CSS v4 frontend (hosted on cPanel).
 
 ---
 
@@ -19,17 +19,18 @@ A premium, modern, and highly interactive Full-Stack web application designed to
 ### 🛡️ Admin Authentication
 - **Secure Access**: Protected dashboard routes utilizing JWT-based bearer authorization.
 - **Local Storage Integration**: Persistent admin sessions checking token validity with the server.
-- **Auto-Seeding**: Backend dynamically seeds a default administrator account on initial run using environment config credentials.
+- **Auto-Seeding**: Backend dynamically seeds a default administrator account in the PostgreSQL database on initial run using environment config credentials.
 
-### 📊 Admin Analytics Dashboard
+### 📊 Admin Analytics Dashboard (Premium Redesign)
+- **High-Fidelity UI**: Redesigned utilizing a sleek, dark-slate sidebar (`bg-slate-950`) and warm brand-orange highlights, matching the professional church management template.
 - **Overview & Statistics (`/admin/overview`)**:
-  - **Overview Metrics**: Active counters for total registered members.
-  - **Recharts Data Visualizations**: Custom charts displaying gender distribution, age range categories, LAUTECH student/non-student percentages, and monthly registration trends.
-  - **Course Analytics**: Progress charts for discipleship programs completed.
+  - **Overview Metrics**: Active counters for total registered members, LAUTECH students, single members, and born-again statuses.
+  - **Recharts Data Visualizations**: Beautiful, custom themed charts displaying gender ratios, age range categories, LAUTECH student/non-student levels, and monthly registration trends.
+  - **Course Analytics**: Progress tracking for completed discipleship classes.
 - **Member Management (`/admin/members`)**:
-  - **CRUD Operations**: Comprehensive table displaying registrations, enabling adding new profiles, viewing complete details, editing profiles, and deletion.
-  - **Search & Filters**: Real-time searching on Name, Email, and Phone number; filters for Gender, Age-Range, Born-Again Status, LAUTECH Student Status, Faculty, and Marital Status.
-  - **Sorting & Pagination**: Column sorting options and configurable pagination levels.
+  - **CRUD Operations**: Comprehensive grid displaying registrations, supporting profile additions, detailed views, full profile edits, and member deletion.
+  - **Search & Filters**: Real-time multi-criteria searching on Name, Email, and Phone number; filters for Gender, Age-Range, Born-Again Status, LAUTECH Student Status, Faculty, and Marital Status.
+  - **Sorting & Pagination**: Clean column sorting and pagination layouts.
   - **CSV Data Exporter**: Instant download of all registered members' records formatted into a clean, comma-separated spreadsheet (`.csv`).
 
 ---

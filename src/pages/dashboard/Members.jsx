@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Filter, ArrowUpDown, ChevronLeft, ChevronRight, Download, Eye, Edit2, Trash2, X, AlertTriangle } from "lucide-react";
+import { Search, ArrowUpDown, ChevronLeft, ChevronRight, Download, Eye, Edit2, Trash2, X, AlertTriangle } from "lucide-react";
 import { API_URL } from "../../constants/api";
 
 const ageRanges = ["Birth to 10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91 and Above"];
@@ -184,7 +184,7 @@ export default function Members() {
   };
 
   return (
-    <div className="space-y-6 text-gray-700">
+    <div className="space-y-8 text-gray-700">
       {/* Title & Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -195,7 +195,7 @@ export default function Members() {
         </div>
         <button
           onClick={handleExport}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg shadow-blue-500/10 cursor-pointer text-sm"
+          className="flex items-center gap-2 px-5 py-2.5 bg-brand-orange-600 hover:bg-brand-orange-700 text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg shadow-brand-orange-600/35 cursor-pointer text-sm"
         >
           <Download className="w-4 h-4" />
           <span>Export Database (CSV)</span>
@@ -225,7 +225,7 @@ export default function Members() {
               placeholder="Search members by name, email, or phone number..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 text-gray-800 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50/50 border border-slate-200 text-gray-800 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 focus:border-transparent transition-all text-sm"
             />
           </div>
           <div>
@@ -235,7 +235,7 @@ export default function Members() {
                 setLautechStudent(e.target.value);
                 setFaculty(""); // reset faculty if non-student
               }}
-              className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
             >
               <option value="">All Membership Types</option>
               <option value="Yes">LAUTECH Students</option>
@@ -251,7 +251,7 @@ export default function Members() {
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all font-medium"
             >
               <option value="">Gender (All)</option>
               <option value="Female">Female</option>
@@ -264,7 +264,7 @@ export default function Members() {
             <select
               value={ageRange}
               onChange={(e) => setAgeRange(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all font-medium"
             >
               <option value="">Age-Range (All)</option>
               {ageRanges.map(ar => (
@@ -278,7 +278,7 @@ export default function Members() {
             <select
               value={bornAgain}
               onChange={(e) => setBornAgain(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all font-medium"
             >
               <option value="">Born Again (All)</option>
               <option value="Yes">Yes</option>
@@ -292,7 +292,7 @@ export default function Members() {
             <select
               value={maritalStatus}
               onChange={(e) => setMaritalStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all font-medium"
             >
               <option value="">Marital Status (All)</option>
               {maritalOptions.map(m => (
@@ -307,7 +307,7 @@ export default function Members() {
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
               disabled={lautechStudent === "No"}
-              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all disabled:opacity-40"
+              className="w-full px-3 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all disabled:opacity-40 font-medium"
             >
               <option value="">Faculty (All)</option>
               {faculties.map(f => (
@@ -322,7 +322,7 @@ export default function Members() {
       <div className="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex h-56 items-center justify-center">
-            <div className="w-10 h-10 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+            <div className="w-10 h-10 border-4 border-brand-orange-500/20 border-t-brand-orange-600 rounded-full animate-spin"></div>
           </div>
         ) : members.length > 0 ? (
           <div className="overflow-x-auto w-full">
@@ -353,16 +353,16 @@ export default function Members() {
                 {members.map((member) => (
                   <tr key={member.id} className="hover:bg-slate-50/60 transition-colors">
                     <td className="py-4 px-6 font-bold text-slate-800">{member.name}</td>
-                    <td className="py-4 px-6 font-mono text-slate-600">{member.phone}</td>
+                    <td className="py-4 px-6 font-mono text-slate-605">{member.phone}</td>
                     <td className="py-4 px-6 text-slate-600">{member.email || "-"}</td>
                     <td className="py-4 px-6">{member.gender || "-"}</td>
                     <td className="py-4 px-6">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-                        member.born_again === "Yes" 
-                          ? "bg-green-50 text-green-700" 
-                          : member.born_again === "Maybe" 
-                          ? "bg-amber-50 text-amber-700" 
-                          : "bg-red-50 text-red-700"
+                         member.born_again === "Yes" 
+                           ? "bg-green-50 text-green-700" 
+                           : member.born_again === "Maybe" 
+                           ? "bg-amber-50 text-amber-700" 
+                           : "bg-red-50 text-red-700"
                       }`}>
                         {member.born_again || "No"}
                       </span>
@@ -378,14 +378,14 @@ export default function Members() {
                     <td className="py-4 px-6 text-right space-x-1.5">
                       <button
                         onClick={() => { setSelectedMember(member); setViewModalOpen(true); }}
-                        className="p-1.5 hover:bg-blue-50 text-slate-500 hover:text-blue-600 rounded-lg transition-colors cursor-pointer"
+                        className="p-1.5 hover:bg-brand-orange-50 text-slate-500 hover:text-brand-orange-600 rounded-lg transition-colors cursor-pointer"
                         title="View Profile"
                       >
                         <Eye className="w-4.5 h-4.5" />
                       </button>
                       <button
                         onClick={() => { setEditMember({ ...member }); setEditModalOpen(true); }}
-                        className="p-1.5 hover:bg-purple-50 text-slate-500 hover:text-purple-600 rounded-lg transition-colors cursor-pointer"
+                        className="p-1.5 hover:bg-brand-orange-50 text-slate-500 hover:text-brand-orange-600 rounded-lg transition-colors cursor-pointer"
                         title="Edit Profile"
                       >
                         <Edit2 className="w-4.5 h-4.5" />
@@ -412,7 +412,7 @@ export default function Members() {
         {/* Pagination controls */}
         {!loading && pagination.totalPages > 1 && (
           <div className="bg-slate-50 border-t border-slate-100 px-6 py-4 flex items-center justify-between">
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-500 font-semibold">
               Showing {members.length} of {pagination.totalItems} members
             </span>
             <div className="flex items-center gap-2">
@@ -429,7 +429,7 @@ export default function Members() {
                   onClick={() => handlePageChange(pg)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     pagination.currentPage === pg
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+                      ? "bg-brand-orange-600 text-white shadow-md shadow-brand-orange-600/10"
                       : "border border-slate-200 bg-white hover:bg-slate-50 text-slate-600"
                   }`}
                 >
@@ -448,24 +448,24 @@ export default function Members() {
         )}
       </div>
 
-      {/* PROFILE VIEW MODAL (renders all 26 fields in detailed grid) */}
+      {/* PROFILE VIEW MODAL */}
       {viewModalOpen && selectedMember && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-3xl w-full max-w-4xl shadow-2xl border border-slate-100 overflow-hidden my-8 max-h-[90svh] flex flex-col">
             <div className="bg-slate-50 px-6 py-4 border-b border-slate-100 flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-slate-800 text-lg">Member Detailed Profile</h3>
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">ID: {selectedMember.id}</span>
+                <span className="text-xs bg-brand-orange-100 text-brand-orange-700 px-2 py-0.5 rounded-full font-bold">ID: {selectedMember.id}</span>
               </div>
               <button onClick={() => setViewModalOpen(false)} className="p-1 hover:bg-slate-200 rounded-lg text-slate-400 hover:text-slate-600 transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto space-y-6 flex-1 text-gray-700">
+            <div className="p-6 overflow-y-auto space-y-6 flex-1 text-gray-750">
               {/* Personal Section */}
               <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-blue-600 mb-3 border-b border-blue-100 pb-1.5">Personal Details</h4>
+                <h4 className="font-bold text-xs uppercase tracking-wider text-brand-orange-600 mb-3 border-b border-brand-orange-100 pb-1.5">Personal Details</h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-6">
                   <div><span className="text-xs text-slate-400 font-semibold block">Full Name</span><span className="text-sm font-bold text-slate-800">{selectedMember.name}</span></div>
                   <div><span className="text-xs text-slate-400 font-semibold block">Phone Number</span><span className="text-sm font-medium font-mono">{selectedMember.phone}</span></div>
@@ -498,7 +498,7 @@ export default function Members() {
                     </div>
                   </div>
                   {selectedMember.salvation_xp && (
-                    <div className="md:col-span-3"><span className="text-xs text-slate-400 font-semibold block">Salvation Experience</span><p className="text-sm text-slate-600 leading-relaxed mt-1">{selectedMember.salvation_xp}</p></div>
+                    <div className="md:col-span-3"><span className="text-xs text-slate-400 font-semibold block">Salvation Experience</span><p className="text-sm text-slate-605 leading-relaxed mt-1">{selectedMember.salvation_xp}</p></div>
                   )}
                 </div>
               </div>
@@ -546,7 +546,7 @@ export default function Members() {
                   setViewModalOpen(false);
                   setEditModalOpen(true);
                 }}
-                className="px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl text-sm font-medium transition-all shadow-md hover:shadow-lg cursor-pointer"
+                className="px-5 py-2 bg-brand-orange-600 hover:bg-brand-orange-700 text-white rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer"
               >
                 Edit Profile
               </button>
@@ -576,7 +576,7 @@ export default function Members() {
               <div className="p-6 overflow-y-auto space-y-6 text-gray-700">
                 {/* Personal Section */}
                 <div className="space-y-4">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-blue-600 mb-1 border-b border-blue-100 pb-1.5">Personal Details</h4>
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-brand-orange-600 mb-1 border-b border-brand-orange-100 pb-1.5">Personal Details</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2">
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Full Name</label>
@@ -585,7 +585,7 @@ export default function Members() {
                         value={editMember.name}
                         onChange={(e) => setEditMember({ ...editMember, name: e.target.value })}
                         required
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
@@ -595,16 +595,16 @@ export default function Members() {
                         value={editMember.phone}
                         onChange={(e) => setEditMember({ ...editMember, phone: e.target.value })}
                         required
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Whatsapp Number</label>
                       <input
                         type="tel"
-                        value={editMember.whatsapp}
+                        value={editMember.whatsapp || ""}
                         onChange={(e) => setEditMember({ ...editMember, whatsapp: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
@@ -613,25 +613,26 @@ export default function Members() {
                         type="email"
                         value={editMember.email || ""}
                         onChange={(e) => setEditMember({ ...editMember, email: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Date of Birth</label>
                       <input
                         type="date"
-                        value={editMember.dob}
+                        value={editMember.dob || ""}
                         onChange={(e) => setEditMember({ ...editMember, dob: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Gender</label>
                       <select
-                        value={editMember.gender}
+                        value={editMember.gender || ""}
                         onChange={(e) => setEditMember({ ...editMember, gender: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
+                        <option value="">Select Gender</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                       </select>
@@ -639,10 +640,11 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Age Range</label>
                       <select
-                        value={editMember.age_range}
+                        value={editMember.age_range || ""}
                         onChange={(e) => setEditMember({ ...editMember, age_range: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
+                        <option value="">Select Age Range</option>
                         {ageRanges.map(ar => (
                           <option key={ar} value={ar}>{ar}</option>
                         ))}
@@ -651,10 +653,11 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Marital Status</label>
                       <select
-                        value={editMember.marital_status}
+                        value={editMember.marital_status || ""}
                         onChange={(e) => setEditMember({ ...editMember, marital_status: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
+                        <option value="">Select Status</option>
                         {maritalOptions.map(m => (
                           <option key={m} value={m}>{m}</option>
                         ))}
@@ -663,10 +666,10 @@ export default function Members() {
                     <div className="md:col-span-3">
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Home Address</label>
                       <textarea
-                        value={editMember.home_address}
+                        value={editMember.home_address || ""}
                         onChange={(e) => setEditMember({ ...editMember, home_address: e.target.value })}
                         rows={2}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       ></textarea>
                     </div>
                   </div>
@@ -679,9 +682,9 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Born Again</label>
                       <select
-                        value={editMember.born_again}
+                        value={editMember.born_again || "No"}
                         onChange={(e) => setEditMember({ ...editMember, born_again: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -691,9 +694,9 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Baptized by Immersion</label>
                       <select
-                        value={editMember.baptized}
+                        value={editMember.baptized || "No"}
                         onChange={(e) => setEditMember({ ...editMember, baptized: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -702,9 +705,9 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Baptist from Home</label>
                       <select
-                        value={editMember.baptist_from_home}
+                        value={editMember.baptist_from_home || "No"}
                         onChange={(e) => setEditMember({ ...editMember, baptist_from_home: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -714,27 +717,27 @@ export default function Members() {
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Home Church Name</label>
                       <input
                         type="text"
-                        value={editMember.home_church}
+                        value={editMember.home_church || ""}
                         onChange={(e) => setEditMember({ ...editMember, home_church: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Joined HGBC Date</label>
                       <input
                         type="date"
-                        value={editMember.joined_hgbc}
+                        value={editMember.joined_hgbc || ""}
                         onChange={(e) => setEditMember({ ...editMember, joined_hgbc: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div className="md:col-span-3">
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Salvation Experience</label>
                       <textarea
-                        value={editMember.salvation_xp}
+                        value={editMember.salvation_xp || ""}
                         onChange={(e) => setEditMember({ ...editMember, salvation_xp: e.target.value })}
                         rows={2}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       ></textarea>
                     </div>
                     <div className="md:col-span-3">
@@ -743,7 +746,7 @@ export default function Members() {
                         {discipleshipOptions.map(option => {
                           const isChecked = editMember.discipleship_done.includes(option);
                           return (
-                            <label key={option} className="flex items-center gap-2 p-1 text-xs cursor-pointer select-none">
+                            <label key={option} className="flex items-center gap-2 p-1 text-xs cursor-pointer select-none font-semibold">
                               <input
                                 type="checkbox"
                                 checked={isChecked}
@@ -753,7 +756,7 @@ export default function Members() {
                                     : [...editMember.discipleship_done, option];
                                   setEditMember({ ...editMember, discipleship_done: updated });
                                 }}
-                                className="rounded text-blue-600 focus:ring-blue-500 border-slate-300 w-4 h-4 cursor-pointer"
+                                className="rounded text-brand-orange-650 focus:ring-brand-orange-500 border-slate-300 w-4 h-4 cursor-pointer"
                               />
                               <span>{option}</span>
                             </label>
@@ -772,36 +775,36 @@ export default function Members() {
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Guardian Name</label>
                       <input
                         type="text"
-                        value={editMember.guardian_name}
+                        value={editMember.guardian_name || ""}
                         onChange={(e) => setEditMember({ ...editMember, guardian_name: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Guardian Phone</label>
                       <input
                         type="tel"
-                        value={editMember.guardian_phone}
+                        value={editMember.guardian_phone || ""}
                         onChange={(e) => setEditMember({ ...editMember, guardian_phone: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Relationship</label>
                       <input
                         type="text"
-                        value={editMember.guardian_rel}
+                        value={editMember.guardian_rel || ""}
                         onChange={(e) => setEditMember({ ...editMember, guardian_rel: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-xs font-semibold text-slate-500 mb-1">Guardian Location</label>
                       <input
                         type="text"
-                        value={editMember.guardian_loc}
+                        value={editMember.guardian_loc || ""}
                         onChange={(e) => setEditMember({ ...editMember, guardian_loc: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                       />
                     </div>
                   </div>
@@ -814,9 +817,9 @@ export default function Members() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-500 mb-1">LAUTECH Student</label>
                       <select
-                        value={editMember.lautech_student}
+                        value={editMember.lautech_student || "No"}
                         onChange={(e) => setEditMember({ ...editMember, lautech_student: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                       >
                         <option value="No">No</option>
                         <option value="Yes">Yes</option>
@@ -827,10 +830,11 @@ export default function Members() {
                         <div>
                           <label className="block text-xs font-semibold text-slate-500 mb-1">Current Level</label>
                           <select
-                            value={editMember.current_level}
+                            value={editMember.current_level || ""}
                             onChange={(e) => setEditMember({ ...editMember, current_level: e.target.value })}
-                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                           >
+                            <option value="">Select Level</option>
                             {levels.map(l => (
                               <option key={l} value={l}>{l}</option>
                             ))}
@@ -839,9 +843,9 @@ export default function Members() {
                         <div className="md:col-span-2">
                           <label className="block text-xs font-semibold text-slate-500 mb-1">Faculty</label>
                           <select
-                            value={editMember.lautech_faculty}
+                            value={editMember.lautech_faculty || ""}
                             onChange={(e) => setEditMember({ ...editMember, lautech_faculty: e.target.value })}
-                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm font-semibold"
                           >
                             <option value="">Select Faculty</option>
                             {faculties.map(f => (
@@ -853,18 +857,18 @@ export default function Members() {
                           <label className="block text-xs font-semibold text-slate-500 mb-1">Department</label>
                           <input
                             type="text"
-                            value={editMember.lautech_dept}
+                            value={editMember.lautech_dept || ""}
                             onChange={(e) => setEditMember({ ...editMember, lautech_dept: e.target.value })}
-                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                           />
                         </div>
                         <div className="md:col-span-2">
                           <label className="block text-xs font-semibold text-slate-500 mb-1">Ogbomoso Hostel Address</label>
                           <input
                             type="text"
-                            value={editMember.hostel_address}
+                            value={editMember.hostel_address || ""}
                             onChange={(e) => setEditMember({ ...editMember, hostel_address: e.target.value })}
-                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                           />
                         </div>
                       </>
@@ -876,10 +880,10 @@ export default function Members() {
                 <div>
                   <label className="block text-xs font-semibold text-slate-500 mb-1">Other Comments</label>
                   <textarea
-                    value={editMember.comments}
+                    value={editMember.comments || ""}
                     onChange={(e) => setEditMember({ ...editMember, comments: e.target.value })}
                     rows={2}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange-500 transition-all text-sm"
                   ></textarea>
                 </div>
               </div>
@@ -887,14 +891,14 @@ export default function Members() {
               <div className="bg-slate-50 border-t border-slate-100 px-6 py-4 flex justify-end gap-3 flex-shrink-0">
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl text-sm font-medium transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  className="px-5 py-2 bg-brand-orange-600 hover:bg-brand-orange-700 text-white rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer"
                 >
                   Save Profile
                 </button>
                 <button
                   type="button"
                   onClick={() => setEditModalOpen(false)}
-                  className="px-5 py-2 border border-slate-200 hover:bg-slate-100 text-slate-600 rounded-xl text-sm font-medium transition-all cursor-pointer"
+                  className="px-5 py-2 border border-slate-200 hover:bg-slate-100 text-slate-650 rounded-xl text-sm font-medium transition-all cursor-pointer"
                 >
                   Cancel
                 </button>

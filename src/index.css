@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --color-brand-orange-50: #fff7ed;
+  --color-brand-orange-100: #ffedd5;
+  --color-brand-orange-500: #f97316;
+  --color-brand-orange-600: #ea580c;
+  --color-brand-orange-700: #c2410c;
+}
+
 :root {
   font-family: "Outfit", serif;
   line-height: 1.5;
